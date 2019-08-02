@@ -273,7 +273,7 @@ class UrlComponentEncodingTester {
   private void testFromUrl(int codePoint, Encoding encoding, Component component) {
     String encoded = encoding.encode(codePoint);
     WebUrl httpUrl = WebUrl.get(component.urlString(encoded));
-    WebUrl toAndFromJavaNetUrl = WebUrl.get(httpUrl.url()).orElse(null);
+    WebUrl toAndFromJavaNetUrl = WebUrl.from(httpUrl.url());
     if (!toAndFromJavaNetUrl.equals(httpUrl)) {
       fail(format("Encoding %s %#x using %s", component, codePoint, encoding));
     }
@@ -285,7 +285,7 @@ class UrlComponentEncodingTester {
     String encoded = encoding.encode(codePoint);
     WebUrl httpUrl = WebUrl.get(component.urlString(encoded));
     URI uri = httpUrl.uri();
-    WebUrl toAndFromUri = WebUrl.get(uri).orElse(null);
+    WebUrl toAndFromUri = WebUrl.get(uri);
     if (uriEscaped) {
       // The URI has more escaping than the HttpURL. Check that the decoded values still match.
       if (uri.toString().equals(httpUrl.toString())) {

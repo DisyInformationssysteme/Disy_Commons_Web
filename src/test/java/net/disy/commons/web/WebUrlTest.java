@@ -1473,14 +1473,14 @@ public final class WebUrlTest {
 
   @Test public void fromJavaNetUrl() throws Exception {
     URL javaNetUrl = new URL("http://username:password@host/path?query#fragment");
-    WebUrl httpUrl = WebUrl.get(javaNetUrl);
+    WebUrl httpUrl = WebUrl.from(javaNetUrl);
     assertThat(httpUrl.toString()).isEqualTo(
         "http://username:password@host/path?query#fragment");
   }
 
   @Test public void fromJavaNetUrlUnsupportedScheme() throws Exception {
     URL javaNetUrl = new URL("mailto:user@example.com");
-    assertThat(WebUrl.get(javaNetUrl)).isNull();
+    assertThat(WebUrl.from(javaNetUrl)).isNull();
   }
 
   @Test public void fromUri() throws Exception {

@@ -275,7 +275,7 @@ import okio.Buffer;
  * {@code java.net.URL} it's possible to create an awkward URL like {@code http:/} with scheme and
  * path but no hostname. Building APIs that consume such malformed values is difficult!
  *
- * <p>This class has a modern API. It avoids punitive checked exceptions: {@link #get get()}
+ * <p>This class has a modern API. It avoids punitive checked exceptions: {@link #from get()}
  * throws {@link IllegalArgumentException} on invalid input or {@link #parse parse()}
  * returns null if the input is an invalid URL. You can even be explicit about whether each
  * component has been encoded already.
@@ -915,7 +915,7 @@ public final class WebUrl {
    * Returns an {@link WebUrl} for {@code url} if its protocol is {@code http} or {@code https}, or
    * null if it has any other protocol.
    */
-  static /*@Nullable*/ WebUrl get(URL url) {
+  static /*@Nullable*/ WebUrl from(URL url) {
     return parse(url.toString());
   }
 
