@@ -1,0 +1,9 @@
+module net.disy.commons.web {
+  // test only
+  requires java.net.http;
+
+  // test only
+  requires okio;
+
+  exports net.disy.commons.web;
+}
