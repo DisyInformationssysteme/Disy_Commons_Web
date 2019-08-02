@@ -864,7 +864,7 @@ public final class WebUrl {
   }
 
   public Builder newBuilder() {
-    Builder result = new Builder();
+    Builder result = builder();
     result.scheme = scheme;
     result.encodedUsername = encodedUsername();
     result.encodedPassword = encodedPassword();
@@ -884,7 +884,7 @@ public final class WebUrl {
    */
   public /*@Nullable*/ Builder newBuilder(String link) {
     try {
-      return new Builder().parse(this, link);
+      return builder().parse(this, link);
     } catch (IllegalArgumentException ignored) {
       return null;
     }
@@ -908,7 +908,7 @@ public final class WebUrl {
    * @throws IllegalArgumentException If {@code url} is not a well-formed HTTP or HTTPS URL.
    */
   public static WebUrl get(String url) {
-    return new Builder().parse(null, url).build();
+    return builder().parse(null, url).build();
   }
 
   /**
@@ -925,6 +925,10 @@ public final class WebUrl {
    */
   public static /*@Nullable*/ WebUrl get(URI uri) {
     return parse(uri.toString());
+  }
+
+  public static Builder builder() {
+    return new Builder();
   }
 
   @Override public boolean equals(/*@Nullable*/ Object other) {
@@ -973,7 +977,7 @@ public final class WebUrl {
     /*@Nullable*/ List<String> encodedQueryNamesAndValues;
     /*@Nullable*/ String encodedFragment;
 
-    public Builder() {
+    private Builder() {
       encodedPathSegments.add(""); // The default path is '/' which needs a trailing space.
     }
 

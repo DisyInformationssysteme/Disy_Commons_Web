@@ -33,7 +33,6 @@ import org.junit.runners.Parameterized;
 
 import net.disy.commons.web.UrlComponentEncodingTester.Component;
 import net.disy.commons.web.UrlComponentEncodingTester.Encoding;
-import net.disy.commons.web.WebUrl.Builder;
 
 @RunWith(Parameterized.class)
 public final class WebUrlTest {
@@ -809,13 +808,13 @@ public final class WebUrlTest {
 
   @Test public void incompleteUrlComposition() throws Exception {
     try {
-      new Builder().scheme("http").build();
+      WebUrl.builder().scheme("http").build();
       fail();
     } catch (IllegalStateException expected) {
       assertThat(expected.getMessage()).isEqualTo("host == null");
     }
     try {
-      new Builder().host("host").build();
+      WebUrl.builder().host("host").build();
       fail();
     } catch (IllegalStateException expected) {
       assertThat(expected.getMessage()).isEqualTo("scheme == null");
@@ -828,17 +827,17 @@ public final class WebUrlTest {
   }
 
   @Test public void incompleteBuilderToString() {
-    assertThat(new Builder().scheme("https").encodedPath("/path").toString()).isEqualTo(
+    assertThat(WebUrl.builder().scheme("https").encodedPath("/path").toString()).isEqualTo(
         "https:///path");
-    assertThat(new Builder().host("host.com").encodedPath("/path").toString()).isEqualTo(
+    assertThat(WebUrl.builder().host("host.com").encodedPath("/path").toString()).isEqualTo(
         "//host.com/path");
     assertThat(
-        (Object) new Builder().host("host.com").encodedPath("/path").port(8080).toString()).isEqualTo(
+        (Object) WebUrl.builder().host("host.com").encodedPath("/path").port(8080).toString()).isEqualTo(
         "//host.com:8080/path");
   }
 
   @Test public void minimalUrlComposition() throws Exception {
-    WebUrl url = new Builder().scheme("http").host("host").build();
+    WebUrl url = WebUrl.builder().scheme("http").host("host").build();
     assertThat(url.toString()).isEqualTo("http://host/");
     assertThat(url.scheme()).isEqualTo("http");
     assertThat(url.username()).isEqualTo("");
@@ -851,7 +850,7 @@ public final class WebUrlTest {
   }
 
   @Test public void fullUrlComposition() throws Exception {
-    WebUrl url = new Builder()
+    WebUrl url = WebUrl.builder()
         .scheme("http")
         .username("username")
         .password("password")
@@ -891,7 +890,7 @@ public final class WebUrlTest {
   }
 
   @Test public void composeEncodesWhitespace() throws Exception {
-    WebUrl url = new Builder()
+    WebUrl url = WebUrl.builder()
         .scheme("http")
         .username("a\r\n\f\t b")
         .password("c\r\n\f\t d")
@@ -910,7 +909,7 @@ public final class WebUrlTest {
   }
 
   @Test public void composeFromUnencodedComponents() throws Exception {
-    WebUrl url = new Builder()
+    WebUrl url = WebUrl.builder()
         .scheme("http")
         .username("a:\u0001@/\\?#%b")
         .password("c:\u0001@/\\?#%d")
@@ -937,7 +936,7 @@ public final class WebUrlTest {
   }
 
   @Test public void composeFromEncodedComponents() throws Exception {
-    WebUrl url = new Builder()
+    WebUrl url = WebUrl.builder()
         .scheme("http")
         .encodedUsername("a:\u0001@/\\?#%25b")
         .encodedPassword("c:\u0001@/\\?#%25d")
@@ -964,7 +963,7 @@ public final class WebUrlTest {
   }
 
   @Test public void composeWithEncodedPath() throws Exception {
-    WebUrl url = new Builder()
+    WebUrl url = WebUrl.builder()
         .scheme("http")
         .host("host")
         .encodedPath("/a%2Fb/c")
@@ -975,7 +974,7 @@ public final class WebUrlTest {
   }
 
   @Test public void composeMixingPathSegments() throws Exception {
-    WebUrl url = new Builder()
+    WebUrl url = WebUrl.builder()
         .scheme("http")
         .host("host")
         .encodedPath("/a%2fb/c")
@@ -1182,7 +1181,7 @@ public final class WebUrlTest {
 
   @Test public void setPathSegmentOutOfBounds() throws Exception {
     try {
-      new Builder().setPathSegment(1, "a");
+      WebUrl.builder().setPathSegment(1, "a");
       fail();
     } catch (IndexOutOfBoundsException expected) {
     }
@@ -1238,7 +1237,7 @@ public final class WebUrlTest {
 
   @Test public void setEncodedPathSegmentOutOfBounds() throws Exception {
     try {
-      new Builder().setEncodedPathSegment(1, "a");
+      WebUrl.builder().setEncodedPathSegment(1, "a");
       fail();
     } catch (IndexOutOfBoundsException expected) {
     }
@@ -1265,7 +1264,7 @@ public final class WebUrlTest {
 
   @Test public void removePathSegmentOutOfBounds() throws Exception {
     try {
-      new Builder().removePathSegment(1);
+      WebUrl.builder().removePathSegment(1);
       fail();
     } catch (IndexOutOfBoundsException expected) {
     }
@@ -1292,7 +1291,7 @@ public final class WebUrlTest {
   }
 
   @Test public void toUriWithUsernameNoPassword() throws Exception {
-    WebUrl httpUrl = new Builder()
+    WebUrl httpUrl = WebUrl.builder()
         .scheme("http")
         .username("user")
         .host("host")
@@ -1302,7 +1301,7 @@ public final class WebUrlTest {
   }
 
   @Test public void toUriUsernameSpecialCharacters() throws Exception {
-    WebUrl url = new Builder()
+    WebUrl url = WebUrl.builder()
         .scheme("http")
         .host("host")
         .username("=[]:;\"~|?#@^/$%*")
@@ -1314,7 +1313,7 @@ public final class WebUrlTest {
   }
 
   @Test public void toUriPasswordSpecialCharacters() throws Exception {
-    WebUrl url = new Builder()
+    WebUrl url = WebUrl.builder()
         .scheme("http")
         .host("host")
         .username("user")
@@ -1327,7 +1326,7 @@ public final class WebUrlTest {
   }
 
   @Test public void toUriPathSpecialCharacters() throws Exception {
-    WebUrl url = new Builder()
+    WebUrl url = WebUrl.builder()
         .scheme("http")
         .host("host")
         .addPathSegment("=[]:;\"~|?#@^/$%*")
@@ -1338,7 +1337,7 @@ public final class WebUrlTest {
   }
 
   @Test public void toUriQueryParameterNameSpecialCharacters() throws Exception {
-    WebUrl url = new Builder()
+    WebUrl url = WebUrl.builder()
         .scheme("http")
         .host("host")
         .addQueryParameter("=[]:;\"~|?#@^/$%*", "a")
@@ -1351,7 +1350,7 @@ public final class WebUrlTest {
   }
 
   @Test public void toUriQueryParameterValueSpecialCharacters() throws Exception {
-    WebUrl url = new Builder()
+    WebUrl url = WebUrl.builder()
         .scheme("http")
         .host("host")
         .addQueryParameter("a", "=[]:;\"~|?#@^/$%*")
@@ -1364,7 +1363,7 @@ public final class WebUrlTest {
   }
 
   @Test public void toUriQueryValueSpecialCharacters() throws Exception {
-    WebUrl url = new Builder()
+    WebUrl url = WebUrl.builder()
         .scheme("http")
         .host("host")
         .query("=[]:;\"~|?#@^/$%*")
@@ -1374,7 +1373,7 @@ public final class WebUrlTest {
   }
 
   @Test public void queryCharactersEncodedWhenComposed() throws Exception {
-    WebUrl url = new Builder()
+    WebUrl url = WebUrl.builder()
         .scheme("http")
         .host("host")
         .addQueryParameter("a", "!$(),/:;?@[]\\^`{|}~")
@@ -1389,7 +1388,7 @@ public final class WebUrlTest {
    * We retain the encoded (or non-encoded) state of the input.
    */
   @Test public void queryCharactersNotReencodedWhenComposedWithAddEncoded() throws Exception {
-    WebUrl url = new Builder()
+    WebUrl url = WebUrl.builder()
         .scheme("http")
         .host("host")
         .addEncodedQueryParameter("a", "!$(),/:;?@[]\\^`{|}~")
@@ -1409,7 +1408,7 @@ public final class WebUrlTest {
   }
 
   @Test public void toUriFragmentSpecialCharacters() throws Exception {
-    WebUrl url = new Builder()
+    WebUrl url = WebUrl.builder()
         .scheme("http")
         .host("host")
         .fragment("=[]:;\"~|?#@^/$%*")
@@ -1659,7 +1658,7 @@ public final class WebUrlTest {
   }
 
   @Test public void roundTripBuilder() throws Exception {
-    WebUrl url = new Builder()
+    WebUrl url = WebUrl.builder()
         .scheme("http")
         .username("%")
         .password("%")
