@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import okio.Buffer;
@@ -275,10 +276,14 @@ import okio.Buffer;
  * {@code java.net.URL} it's possible to create an awkward URL like {@code http:/} with scheme and
  * path but no hostname. Building APIs that consume such malformed values is difficult!
  *
- * <p>This class has a modern API. It avoids punitive checked exceptions: {@link #from get()}
- * throws {@link IllegalArgumentException} on invalid input or {@link #parse parse()}
- * returns null if the input is an invalid URL. You can even be explicit about whether each
- * component has been encoded already.
+ * <p>This class has a modern API. It avoids nulls and checked exceptions:
+ * <ul>
+ *   <li>{@link #get(String)} returns a {@link WebUrl} or throws an {@link IllegalArgumentException} on invalid input</li>
+ *   <li>{@link #parse(String)} returns an {@link Optional<WebUrl>}</li>
+ *   <li>{@link #from(URI)} and {@link #from(URL)} return an {@link Optional<WebUrl>}</li>
+ * </ul>
+ *
+ * <p>You can even be explicit about whether each component has been encoded already.
  */
 public final class WebUrl {
   private static final char[] HEX_DIGITS =
@@ -891,19 +896,22 @@ public final class WebUrl {
   }
 
   /**
-   * Returns a new {@code WebUrl} representing {@code url} if it is a well-formed HTTP or HTTPS
-   * URL, or null if it isn't.
+   * Returns a new {@code Optional<WebUrl>} representing {@code url} if it is a well-formed HTTP or HTTPS URL,
+   * or {@code Optional.empty()} if it isn't.
    */
-  public static /*@Nullable*/ WebUrl parse(String url) {
+  public static Optional<WebUrl> parse(String url) {
     try {
-      return get(url);
+      return Optional.of(get(url));
     } catch (IllegalArgumentException ignored) {
-      return null;
+      return Optional.empty();
     }
   }
 
   /**
    * Returns a new {@code WebUrl} representing {@code url}.
+   * This method is intended for inputs that are known to be valid.
+   *
+   * If the validity of the input string is unknown, use {@link #parse(String)} instead.
    *
    * @throws IllegalArgumentException If {@code url} is not a well-formed HTTP or HTTPS URL.
    */
@@ -912,18 +920,18 @@ public final class WebUrl {
   }
 
   /**
-   * Returns an {@link WebUrl} for {@code url} if its protocol is {@code http} or {@code https}, or
-   * null if it has any other protocol.
+   * Returns an {@link Optional<WebUrl>} for {@code url} if its protocol is {@code http} or {@code https},
+   * or {@code Optional.empty()} if it has any other protocol.
    */
-  static /*@Nullable*/ WebUrl from(URL url) {
+  static Optional<WebUrl> from(URL url) {
     return parse(url.toString());
   }
 
   /**
-   * Returns an {@link WebUrl} for {@code uri} if its protocol is {@code http} or {@code https}, or
-   * null if it has any other protocol.
+   * Returns an {@link Optional<WebUrl>} for {@code uri} if its protocol is {@code http} or {@code https},
+   * or {@code Optional.empty()} if it has any other protocol.
    */
-  public static /*@Nullable*/ WebUrl from(URI uri) {
+  public static Optional<WebUrl> from(URI uri) {
     return parse(uri.toString());
   }
 

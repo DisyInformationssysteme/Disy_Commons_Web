@@ -50,7 +50,7 @@ public final class WebUrlTest {
   WebUrl parse(String url) {
     return useGet
         ? WebUrl.get(url)
-        : WebUrl.parse(url);
+        : WebUrl.parse(url).orElse(null);
   }
 
   @Test public void parseTrimsAsciiWhitespace() throws Exception {
@@ -1473,31 +1473,31 @@ public final class WebUrlTest {
 
   @Test public void fromJavaNetUrl() throws Exception {
     URL javaNetUrl = new URL("http://username:password@host/path?query#fragment");
-    WebUrl httpUrl = WebUrl.from(javaNetUrl);
+    WebUrl httpUrl = WebUrl.from(javaNetUrl).orElse(null);
     assertThat(httpUrl.toString()).isEqualTo(
         "http://username:password@host/path?query#fragment");
   }
 
   @Test public void fromJavaNetUrlUnsupportedScheme() throws Exception {
     URL javaNetUrl = new URL("mailto:user@example.com");
-    assertThat(WebUrl.from(javaNetUrl)).isNull();
+    assertThat(WebUrl.from(javaNetUrl).orElse(null)).isNull();
   }
 
   @Test public void fromUri() throws Exception {
     URI uri = new URI("http://username:password@host/path?query#fragment");
-    WebUrl httpUrl = WebUrl.from(uri);
+    WebUrl httpUrl = WebUrl.from(uri).orElse(null);
     assertThat(httpUrl.toString()).isEqualTo(
         "http://username:password@host/path?query#fragment");
   }
 
   @Test public void fromUriUnsupportedScheme() throws Exception {
     URI uri = new URI("mailto:user@example.com");
-    assertThat(WebUrl.from(uri)).isNull();
+    assertThat(WebUrl.from(uri).orElse(null)).isNull();
   }
 
   @Test public void fromUriPartial() throws Exception {
     URI uri = new URI("/path");
-    assertThat(WebUrl.from(uri)).isNull();
+    assertThat(WebUrl.from(uri).orElse(null)).isNull();
   }
 
   @Test public void composeQueryWithComponents() throws Exception {
