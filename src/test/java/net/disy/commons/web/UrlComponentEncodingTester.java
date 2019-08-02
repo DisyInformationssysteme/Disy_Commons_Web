@@ -285,7 +285,7 @@ class UrlComponentEncodingTester {
     String encoded = encoding.encode(codePoint);
     WebUrl httpUrl = WebUrl.get(component.urlString(encoded));
     URI uri = httpUrl.uri();
-    WebUrl toAndFromUri = WebUrl.get(uri);
+    WebUrl toAndFromUri = WebUrl.from(uri);
     if (uriEscaped) {
       // The URI has more escaping than the HttpURL. Check that the decoded values still match.
       if (uri.toString().equals(httpUrl.toString())) {

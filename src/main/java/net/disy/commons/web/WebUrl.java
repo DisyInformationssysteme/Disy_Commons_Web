@@ -923,7 +923,7 @@ public final class WebUrl {
    * Returns an {@link WebUrl} for {@code uri} if its protocol is {@code http} or {@code https}, or
    * null if it has any other protocol.
    */
-  public static /*@Nullable*/ WebUrl get(URI uri) {
+  public static /*@Nullable*/ WebUrl from(URI uri) {
     return parse(uri.toString());
   }
 

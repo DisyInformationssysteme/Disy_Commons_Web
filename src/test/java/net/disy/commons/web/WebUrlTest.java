@@ -1485,19 +1485,19 @@ public final class WebUrlTest {
 
   @Test public void fromUri() throws Exception {
     URI uri = new URI("http://username:password@host/path?query#fragment");
-    WebUrl httpUrl = WebUrl.get(uri);
+    WebUrl httpUrl = WebUrl.from(uri);
     assertThat(httpUrl.toString()).isEqualTo(
         "http://username:password@host/path?query#fragment");
   }
 
   @Test public void fromUriUnsupportedScheme() throws Exception {
     URI uri = new URI("mailto:user@example.com");
-    assertThat(WebUrl.get(uri)).isNull();
+    assertThat(WebUrl.from(uri)).isNull();
   }
 
   @Test public void fromUriPartial() throws Exception {
     URI uri = new URI("/path");
-    assertThat(WebUrl.get(uri)).isNull();
+    assertThat(WebUrl.from(uri)).isNull();
   }
 
   @Test public void composeQueryWithComponents() throws Exception {
