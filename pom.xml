@@ -20,7 +20,7 @@
     <okio.version>1.17.4</okio.version>
 
     <!-- Test Dependencies -->
-    <junit.version>4.12</junit.version>
+    <junit.version>5.5.2</junit.version>
     <assertj.version>3.13.1</assertj.version>
   </properties>
 
@@ -30,10 +30,24 @@
       <artifactId>okio</artifactId>
       <version>${okio.version}</version>
     </dependency>
+
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
       <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.assertj</groupId>

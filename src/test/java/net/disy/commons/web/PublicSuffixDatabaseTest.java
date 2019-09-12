@@ -16,12 +16,12 @@
 package net.disy.commons.web;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import okio.Buffer;
 import okio.BufferedSource;
@@ -31,7 +31,8 @@ import okio.Okio;
 public final class PublicSuffixDatabaseTest {
   private final PublicSuffixDatabase publicSuffixDatabase = new PublicSuffixDatabase();
 
-  @Test public void longestMatchWins() {
+  @Test
+  public void longestMatchWins() {
     Buffer buffer = new Buffer()
         .writeUtf8("com\n")
         .writeUtf8("my.square.com\n")
