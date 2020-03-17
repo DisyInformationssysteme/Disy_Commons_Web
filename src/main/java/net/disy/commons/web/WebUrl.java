@@ -1189,6 +1189,11 @@ public final class WebUrl {
       return this;
     }
 
+    public Builder removeAllQueryParameters() {
+      encodedQueryNamesAndValues = null;
+      return this;
+    }
+
     public Builder removeAllQueryParameters(String name) {
       if (name == null) throw new NullPointerException("name == null");
       if (encodedQueryNamesAndValues == null) return this;

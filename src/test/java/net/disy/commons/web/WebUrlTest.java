@@ -1616,6 +1616,16 @@ public final class WebUrlTest {
   }
 
   @ParameterizedTestWithWebUrlFactory
+  public void removeAllQueryParameter(WebUrlFactoryMethod method) {
+    WebUrl url = create("http://host/", method).newBuilder()
+        .addQueryParameter("a+=& b", "c+=& d")
+        .removeAllQueryParameters()
+        .build();
+    assertThat(url.toString()).isEqualTo("http://host/");
+    assertThat(url.queryParameterNames()).isEmpty();
+  }
+
+  @ParameterizedTestWithWebUrlFactory
   public void composeQueryRemoveQueryParameter(WebUrlFactoryMethod method) {
     WebUrl url = create("http://host/", method).newBuilder()
         .addQueryParameter("a+=& b", "c+=& d")
