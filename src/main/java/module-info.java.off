@@ -1,9 +1,9 @@
-module net.disy.commons.web {
+module net.disy.oss.weburl {
   // test only
   requires java.net.http;
 
   // test only
   requires okio;
 
-  exports net.disy.commons.web;
+  exports net.disy.oss.weburl;
 }

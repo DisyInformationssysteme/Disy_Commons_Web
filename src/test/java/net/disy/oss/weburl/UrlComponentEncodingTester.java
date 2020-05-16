@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.disy.commons.web;
+package net.disy.oss.weburl;
 
 import static org.junit.jupiter.api.Assertions.fail;
 

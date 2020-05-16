@@ -4,13 +4,13 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>net.disy.oss</groupId>
-  <artifactId>disy-commons-web</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <artifactId>weburl</artifactId>
+  <version>1.0</version>
   <packaging>jar</packaging>
 
   <name>disy-commons-web</name>
   <description>A URL class for HTTP and HTTPS, extracted from OkHttp and tracking their 3.x branch.</description>
-  <url>https://github.com/DisyInformationssysteme/disy-commons-web</url>
+  <url>https://github.com/DisyInformationssysteme/weburl</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -73,7 +73,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <version>1.6.0</version>
         <configuration>
-          <mainClass>net.disy.commons.web.PublicSuffixListGenerator</mainClass>
+          <mainClass>net.disy.oss.weburl.PublicSuffixListGenerator</mainClass>
           <classpathScope>test</classpathScope>
           <daemonThreadJoinTimeout>3000</daemonThreadJoinTimeout>
         </configuration>
@@ -88,31 +88,66 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-release-plugin</artifactId>
-        <version>2.5.3</version>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.2.0</version>
         <configuration>
-          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <archive>
+            <manifestEntries>
+              <Automatic-Module-Name>net.disy.oss.weburl</Automatic-Module-Name>
+            </manifestEntries>
+          </archive>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.2.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.1.1</version>
+        <version>3.2.0</version>
         <configuration>
           <failOnError>false</failOnError>
           <doclint>none</doclint>
         </configuration>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>3.1.2</version>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>1.6</version>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>2.8.2</version>
         <configuration>
-          <archive>
-            <manifestEntries>
-              <Automatic-Module-Name>net.disy.commons.web</Automatic-Module-Name>
-            </manifestEntries>
-          </archive>
+          <skip>true</skip>
         </configuration>
       </plugin>
     </plugins>
@@ -124,18 +159,22 @@
       <url>${disy.internal-snapshots.deploy.url}</url>
       <uniqueVersion>false</uniqueVersion>
     </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
   </distributionManagement>
 
   <scm>
     <url>https://github.com/DisyInformationssysteme/disy-commons-web</url>
-    <connection>scm:git:https://github.com/DisyInformationssysteme/disy-commons-web.git</connection>
-    <developerConnection>scm:git:git@github.com:DisyInformationssysteme/disy-commons-web.git</developerConnection>
+    <connection>scm:git:https://github.com/DisyInformationssysteme/weburl.git</connection>
+    <developerConnection>scm:git:git@github.com:DisyInformationssysteme/weburl.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
 
   <issueManagement>
     <system>GitHub Issues</system>
-    <url>https://github.com/DisyInformationssysteme/disy-commons-web/issues</url>
+    <url>https://github.com/DisyInformationssysteme/weburl/issues</url>
   </issueManagement>
 
   <licenses>
@@ -144,5 +183,17 @@
       <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
     </license>
   </licenses>
+
+  <developers>
+    <developer>
+      <id>DisyInformationssysteme</id>
+      <name>Various Authors</name>
+      <email>oss@disy.net</email>
+      <url>https://github.com/DisyInformationssysteme</url>
+      <roles>
+        <role>current maintainers</role>
+      </roles>
+    </developer>
+  </developers>
 
 </project>

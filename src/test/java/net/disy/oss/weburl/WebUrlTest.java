@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.disy.commons.web;
+package net.disy.oss.weburl;
 
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,8 +33,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
-import net.disy.commons.web.UrlComponentEncodingTester.Component;
-import net.disy.commons.web.UrlComponentEncodingTester.Encoding;
+import net.disy.oss.weburl.UrlComponentEncodingTester.Component;
+import net.disy.oss.weburl.UrlComponentEncodingTester.Encoding;
 
 public final class WebUrlTest {
 
