@@ -17,6 +17,7 @@ package net.disy.oss.weburl;
 
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.annotation.Retention;
@@ -1572,6 +1573,23 @@ public final class WebUrlTest {
   @Test public void fromJavaNetUrlUnsupportedScheme() throws MalformedURLException {
     URL javaNetUrl = new URL("mailto:user@example.com");
     assertThat(WebUrl.from(javaNetUrl).orElse(null)).isNull();
+  }
+
+  @Test public void ofUri() {
+    URI uri = URI.create("http://username:password@host/path?query#fragment");
+    WebUrl httpUrl = WebUrl.of(uri);
+    assertThat(httpUrl.toString()).isEqualTo(
+        "http://username:password@host/path?query#fragment");
+  }
+
+  @Test public void ofUriUnsupportedScheme() {
+    URI uri = URI.create("mailto:user@example.com");
+    assertThrows(IllegalArgumentException.class, () -> WebUrl.of(uri));
+  }
+
+  @Test public void ofUriPartial() {
+    URI uri = URI.create("/path");
+    assertThrows(IllegalArgumentException.class, () -> WebUrl.of(uri));
   }
 
   @Test public void fromUri() {

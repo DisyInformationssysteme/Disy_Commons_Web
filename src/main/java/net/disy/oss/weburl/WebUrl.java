@@ -896,7 +896,7 @@ public final class WebUrl {
   }
 
   /**
-   * Returns a new {@code Optional<WebUrl>} representing {@code url} if it is a well-formed HTTP or HTTPS URL,
+   * Returns a new {@link Optional<WebUrl>} representing {@code url} if it is a well-formed HTTP or HTTPS URL,
    * or {@code Optional.empty()} if it isn't.
    */
   public static Optional<WebUrl> parse(String url) {
@@ -908,7 +908,7 @@ public final class WebUrl {
   }
 
   /**
-   * Returns a new {@code WebUrl} representing {@code url}.
+   * Returns a new {@link WebUrl} representing {@code url}.
    * This method is intended for inputs that are known to be valid.
    *
    * If the validity of the input string is unknown, use {@link #parse(String)} instead.
@@ -917,6 +917,18 @@ public final class WebUrl {
    */
   public static WebUrl get(String url) {
     return builder().parse(null, url).build();
+  }
+
+  /**
+   * Returns an {@link WebUrl} for {@code uri}.
+   * This method is intended for inputs that are known to be valid.
+   *
+   * If the validity of the input URI is unknown, use {@link #from(URI)} instead.
+   *
+   * @throws IllegalArgumentException If {@code uri} is not a well-formed HTTP or HTTPS URL.
+   */
+  public static WebUrl of(URI uri) {
+    return get(uri.toString());
   }
 
   /**
