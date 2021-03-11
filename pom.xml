@@ -8,8 +8,8 @@
   <version>1.1</version>
   <packaging>jar</packaging>
 
-  <name>disy-commons-web</name>
-  <description>A URL class for HTTP and HTTPS, extracted from OkHttp and tracking their 3.x branch.</description>
+  <name>disy-oss-web</name>
+  <description>WebUrl – the HttpUrl class extracted from OkHttp and tracking their (Java-based) 3.x branch.</description>
   <url>https://github.com/DisyInformationssysteme/weburl</url>
 
   <properties>
@@ -166,7 +166,7 @@
   </distributionManagement>
 
   <scm>
-    <url>https://github.com/DisyInformationssysteme/disy-commons-web</url>
+    <url>https://github.com/DisyInformationssysteme/weburl</url>
     <connection>scm:git:https://github.com/DisyInformationssysteme/weburl.git</connection>
     <developerConnection>scm:git:git@github.com:DisyInformationssysteme/weburl.git</developerConnection>
     <tag>HEAD</tag>

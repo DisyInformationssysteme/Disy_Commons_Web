@@ -45,7 +45,7 @@ import okio.Sink;
  */
 public final class PublicSuffixListGenerator {
   private static final Path OKHTTP_RESOURCE_DIR =
-      Path.of("src/main/resources/net/disy/commons/web");
+      Path.of("src/main/resources/net/disy/oss/web");
 
   private static final ByteString EXCEPTION_RULE_MARKER = ByteString.encodeUtf8("!");
   private static final String WILDCARD_CHAR = "*";
