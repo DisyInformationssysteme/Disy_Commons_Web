@@ -25,9 +25,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -1617,8 +1617,8 @@ public final class WebUrlTest {
     assertThat(url.queryParameterValue(0)).isEqualTo("c+=& d");
     assertThat(url.queryParameterName(0)).isEqualTo("a+=& b");
     assertThat(url.queryParameter("a+=& b")).isEqualTo("c+=& d");
-    assertThat(url.queryParameterNames()).isEqualTo(Collections.singleton("a+=& b"));
-    assertThat(url.queryParameterValues("a+=& b")).isEqualTo(singletonList("c+=& d"));
+    assertThat(url.queryParameterNames()).isEqualTo(Set.of("a+=& b"));
+    assertThat(url.queryParameterValues("a+=& b")).isEqualTo(List.of("c+=& d"));
     assertThat(url.querySize()).isEqualTo(1);
     // Ambiguous! (Though working as designed.)
     assertThat(url.query()).isEqualTo("a+=& b=c+=& d");
@@ -1692,7 +1692,7 @@ public final class WebUrlTest {
     assertThat(url.toString()).isEqualTo(
         "http://host/?a%2B%3D%26%20b=c%2B%3D%26%20d&a%2B%3D%26%20b=e%2B%3D%26%20f");
     assertThat(url.querySize()).isEqualTo(2);
-    assertThat(url.queryParameterNames()).isEqualTo(Collections.singleton("a+=& b"));
+    assertThat(url.queryParameterNames()).isEqualTo(Set.of("a+=& b"));
     assertThat(url.queryParameterValues("a+=& b")).isEqualTo(List.of("c+=& d", "e+=& f"));
   }
 
@@ -1758,16 +1758,16 @@ public final class WebUrlTest {
     assertThat(url.queryParameterValue(0)).isEqualTo("");
     assertThat(url.queryParameterValue(1)).isEqualTo("");
     assertThat(url.queryParameterValue(2)).isEqualTo("");
-    assertThat(url.queryParameterValues("foo")).isEqualTo(singletonList(""));
-    assertThat(url.queryParameterValues("bar")).isEqualTo(singletonList(""));
-    assertThat(url.queryParameterValues("baz")).isEqualTo(singletonList(""));
+    assertThat(url.queryParameterValues("foo")).isEqualTo(List.of(""));
+    assertThat(url.queryParameterValues("bar")).isEqualTo(List.of(""));
+    assertThat(url.queryParameterValues("baz")).isEqualTo(List.of(""));
   }
 
   @ParameterizedTestWithWebUrlFactory
   public void queryParametersWithRepeatedName(WebUrlFactoryMethod method) {
     WebUrl url = create("http://host/?foo[]=1&foo[]=2&foo[]=3", method);
     assertThat(url.querySize()).isEqualTo(3);
-    assertThat(url.queryParameterNames()).isEqualTo(Collections.singleton("foo[]"));
+    assertThat(url.queryParameterNames()).isEqualTo(Set.of("foo[]"));
     assertThat(url.queryParameterValue(0)).isEqualTo("1");
     assertThat(url.queryParameterValue(1)).isEqualTo("2");
     assertThat(url.queryParameterValue(2)).isEqualTo("3");
