@@ -17,11 +17,11 @@
 
     <!-- Compilation -->
     <java.version>11</java.version>
-    <okio.version>1.17.4</okio.version>
+    <okio.version>1.17.5</okio.version>
 
     <!-- Test Dependencies -->
-    <junit.version>5.5.2</junit.version>
-    <assertj.version>3.13.1</assertj.version>
+    <junit.version>5.10.0</junit.version>
+    <assertj.version>3.24.2</assertj.version>
   </properties>
 
   <dependencies>
