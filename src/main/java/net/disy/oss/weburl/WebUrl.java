@@ -27,10 +27,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import okio.Buffer;
-
-//import javax.annotation.Nullable;
-
 /**
  * A uniform resource locator (URL) with a scheme of either {@code http} or {@code https}. Use this
  * class to compose and decompose Internet addresses. For example, this code will compose and print

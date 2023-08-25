@@ -17,7 +17,6 @@
 
     <!-- Compilation -->
     <java.version>11</java.version>
-    <okio.version>1.17.5</okio.version>
 
     <!-- Test Dependencies -->
     <junit.version>5.10.0</junit.version>
@@ -25,12 +24,6 @@
   </properties>
 
   <dependencies>
-    <dependency>
-      <groupId>com.squareup.okio</groupId>
-      <artifactId>okio</artifactId>
-      <version>${okio.version}</version>
-    </dependency>
-
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>

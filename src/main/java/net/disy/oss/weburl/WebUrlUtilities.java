@@ -22,8 +22,6 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-import okio.Buffer;
-
 //import javax.annotation.Nullable;
 
 /** Junk drawer of utility methods. */

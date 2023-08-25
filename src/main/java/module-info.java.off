@@ -1,6 +1,3 @@
 module net.disy.oss.weburl {
-  // test only
-  requires okio;
-
   exports net.disy.oss.weburl;
 }

@@ -19,13 +19,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.net.URI;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
-
-import okio.Buffer;
-import okio.ByteString;
 
 /** Tests how each code point is encoded and decoded in the context of each URL component. */
 class UrlComponentEncodingTester {
@@ -314,10 +312,10 @@ class UrlComponentEncodingTester {
 
     PERCENT {
       public String encode(int codePoint) {
-        ByteString utf8 = ByteString.encodeUtf8(IDENTITY.encode(codePoint));
+        byte[] utf8 = IDENTITY.encode(codePoint).getBytes(StandardCharsets.UTF_8);
         Buffer percentEncoded = new Buffer();
-        for (int i = 0; i < utf8.size(); i++) {
-          percentEncoded.writeUtf8(format("%%%02X", utf8.getByte(i) & 0xff));
+        for (int i = 0; i < utf8.length; i++) {
+          percentEncoded.writeUtf8(format("%%%02X", utf8[i] & 0xff));
         }
         return percentEncoded.readUtf8();
       }
