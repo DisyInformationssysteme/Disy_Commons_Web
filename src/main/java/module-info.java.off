@@ -1,8 +1,5 @@
 module net.disy.oss.weburl {
   // test only
-  requires java.net.http;
-
-  // test only
   requires okio;
 
   exports net.disy.oss.weburl;

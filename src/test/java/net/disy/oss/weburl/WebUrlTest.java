@@ -1848,22 +1848,4 @@ public final class WebUrlTest {
     assertThat(url.fragment()).isNull();
     assertThat(url.encodedFragment()).isNull();
   }
-
-  @ParameterizedTestWithWebUrlFactory
-  public void topPrivateDomain(WebUrlFactoryMethod method) {
-    assertThat(create("https://google.com", method).topPrivateDomain()).isEqualTo("google.com");
-    assertThat(create("https://adwords.google.co.uk", method).topPrivateDomain()).isEqualTo(
-        "google.co.uk");
-    assertThat(create("https://栃.栃木.jp", method).topPrivateDomain()).isEqualTo(
-        "xn--ewv.xn--4pvxs.jp");
-    assertThat(create("https://xn--ewv.xn--4pvxs.jp", method).topPrivateDomain()).isEqualTo(
-        "xn--ewv.xn--4pvxs.jp");
-
-    assertThat(create("https://co.uk", method).topPrivateDomain()).isNull();
-    assertThat(create("https://square", method).topPrivateDomain()).isNull();
-    assertThat(create("https://栃木.jp", method).topPrivateDomain()).isNull();
-    assertThat(create("https://xn--4pvxs.jp", method).topPrivateDomain()).isNull();
-    assertThat(create("https://localhost", method).topPrivateDomain()).isNull();
-    assertThat(create("https://127.0.0.1", method).topPrivateDomain()).isNull();
-  }
 }

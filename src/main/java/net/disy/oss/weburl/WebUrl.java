@@ -961,30 +961,6 @@ public final class WebUrl {
     return url;
   }
 
-  /**
-   * Returns the domain name of this URL's {@link #host()} that is one level beneath the public
-   * suffix by consulting the <a href="https://publicsuffix.org">public suffix list</a>. Returns
-   * null if this URL's {@link #host()} is an IP address or is considered a public suffix by the
-   * public suffix list.
-   *
-   * <p>In general this method <strong>should not</strong> be used to test whether a domain is valid
-   * or routable. Instead, DNS is the recommended source for that information.
-   *
-   * <p><table summary="">
-   *   <tr><th>URL</th><th>{@code topPrivateDomain()}</th></tr>
-   *   <tr><td>{@code http://google.com}</td><td>{@code "google.com"}</td></tr>
-   *   <tr><td>{@code http://adwords.google.co.uk}</td><td>{@code "google.co.uk"}</td></tr>
-   *   <tr><td>{@code http://square}</td><td>null</td></tr>
-   *   <tr><td>{@code http://co.uk}</td><td>null</td></tr>
-   *   <tr><td>{@code http://localhost}</td><td>null</td></tr>
-   *   <tr><td>{@code http://127.0.0.1}</td><td>null</td></tr>
-   * </table>
-   */
-  public /*@Nullable*/ String topPrivateDomain() {
-    if (WebUrlUtilities.verifyAsIpAddress(host)) return null;
-    return PublicSuffixDatabase.get().getEffectiveTldPlusOne(host);
-  }
-
   public static final class Builder {
     /*@Nullable*/ String scheme;
     String encodedUsername = "";
