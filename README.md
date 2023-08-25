@@ -13,6 +13,6 @@ A URL class for HTTP and HTTPS, extracted from OkHttp and tracking their 3.x bra
 <dependency>
   <groupId>net.disy.oss</groupId>
   <artifactId>weburl</artifactId>
-  <version>1.1</version>
+  <version>2.0</version>
 </dependency>
 ```
